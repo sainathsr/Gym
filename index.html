@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#1a1a2e">
+    <title>Gym Tracker - SAI</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="manifest" href="manifest.json">
+</head>
+<body>
+    <div class="app">
+        <!-- Navigation Tabs -->
+        <nav class="tab-nav">
+            <button class="tab-btn active" data-day="upper">
+                <span class="tab-icon">💪</span>
+                <span class="tab-label">Upper</span>
+            </button>
+            <button class="tab-btn" data-day="lower">
+                <span class="tab-icon">🦵</span>
+                <span class="tab-label">Lower</span>
+            </button>
+            <button class="tab-btn" data-day="core">
+                <span class="tab-icon">🎯</span>
+                <span class="tab-label">Core</span>
+            </button>
+        </nav>
+
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <h1 class="day-title">Upper Body Day</h1>
+                <p class="day-subtitle">3 Sets × 10-15 Reps</p>
+            </div>
+            <div class="progress-ring">
+                <span class="progress-text">0/9</span>
+            </div>
+        </header>
+
+        <!-- Workout Pages -->
+        <main class="workout-container">
+            <!-- Upper Body Page -->
+            <section class="workout-page active" id="upper-page">
+                <!-- Workouts will be injected here -->
+            </section>
+
+            <!-- Lower Body Page -->
+            <section class="workout-page" id="lower-page">
+                <!-- Workouts will be injected here -->
+            </section>
+
+            <!-- Core Page -->
+            <section class="workout-page" id="core-page">
+                <!-- Workouts will be injected here -->
+            </section>
+        </main>
+
+        <!-- Reset Button -->
+        <button class="reset-btn" id="reset-day">
+            Reset Today's Progress
+        </button>
+    </div>
+
+    <!-- Workout Detail Modal -->
+    <div class="modal" id="workout-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Exercise Name</h2>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="modal-illustration"></div>
+                <div class="modal-info">
+                    <div class="info-section">
+                        <h3>How to Perform</h3>
+                        <p class="modal-description"></p>
+                    </div>
+                    <div class="info-section">
+                        <h3>Target Muscles</h3>
+                        <div class="muscle-tags"></div>
+                    </div>
+                    <div class="info-section equipment-section">
+                        <h3>Equipment</h3>
+                        <div class="equipment-info"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-tracking">
+                <h3>Track Your Sets</h3>
+                <div class="sets-container">
+                    <div class="set-input">
+                        <label>Set 1</label>
+                        <input type="number" class="reps-input" data-set="1" placeholder="Reps" min="0" max="50">
+                    </div>
+                    <div class="set-input">
+                        <label>Set 2</label>
+                        <input type="number" class="reps-input" data-set="2" placeholder="Reps" min="0" max="50">
+                    </div>
+                    <div class="set-input">
+                        <label>Set 3</label>
+                        <input type="number" class="reps-input" data-set="3" placeholder="Reps" min="0" max="50">
+                    </div>
+                </div>
+                <div class="comment-section">
+                    <label>Notes (optional)</label>
+                    <textarea class="comment-input" placeholder="How did it feel? Any adjustments?"></textarea>
+                </div>
+            </div>
+            <div class="modal-actions">
+                <button class="btn btn-secondary" id="modal-cancel">Cancel</button>
+                <button class="btn btn-primary" id="modal-save">Save & Complete</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="workouts.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
