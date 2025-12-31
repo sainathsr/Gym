@@ -209,7 +209,7 @@ const svgIcons = {
     </svg>`
 };
 
-// Workout Data
+// Workout Data with Videos and Step-by-Step Guides
 const workoutData = {
     upper: {
         title: "Upper Body Day",
@@ -228,6 +228,15 @@ const workoutData = {
                         repUnit: "min",
                         icon: "cardio",
                         muscles: ["Heart", "Full Body"],
+                        videoId: "mxlDGjWByUs",
+                        videoSource: "YouTube",
+                        steps: [
+                            "Step onto the elliptical and grip the moving handles",
+                            "Start pedaling in a smooth, continuous motion",
+                            "Keep your back straight and core engaged",
+                            "Maintain a moderate pace (60-70% max heart rate)",
+                            "Continue for 15 minutes to warm up muscles"
+                        ],
                         description: "Start with 15 minutes of moderate-intensity cardio on the elliptical (EPX) machine. Keep your heart rate at 60-70% of max. This warms up your muscles, increases blood flow, and prepares your body for the strength workout ahead.",
                         equipment: {
                             name: "Elliptical Cross Trainer",
@@ -248,6 +257,16 @@ const workoutData = {
                         defaultReps: 12,
                         icon: "chestPress",
                         muscles: ["Chest", "Triceps", "Front Deltoids"],
+                        videoId: "xUm0BiZCWlQ",
+                        videoSource: "Muscle & Strength",
+                        steps: [
+                            "Adjust seat so handles are at chest/nipple level",
+                            "Sit with back flat against pad, feet firmly on floor",
+                            "Grip handles with overhand grip, palms facing forward",
+                            "Press handles forward until arms are extended (don't lock elbows)",
+                            "Slowly return to start, keeping tension on chest",
+                            "Keep shoulder blades squeezed together throughout"
+                        ],
                         description: "Sit with back flat against pad, feet on floor. Grip handles at chest level. Push handles forward until arms are extended (don't lock elbows). Slowly return to start position with control. Keep core engaged throughout.",
                         equipment: {
                             name: "Chest Press Machine",
@@ -263,6 +282,16 @@ const workoutData = {
                         defaultReps: 12,
                         icon: "chestFlys",
                         muscles: ["Chest", "Front Deltoids"],
+                        videoId: "Z57CtFmRMxA",
+                        videoSource: "Muscle & Strength",
+                        steps: [
+                            "Adjust seat height so handles align with chest",
+                            "Sit with back against pad, grip handles with arms extended",
+                            "Keep a slight bend in your elbows throughout",
+                            "Bring handles together in front of chest (hugging motion)",
+                            "Squeeze chest muscles at the center for 1 second",
+                            "Slowly return to starting position with control"
+                        ],
                         description: "Sit with back against pad, arms extended on handles at chest height. Bring handles together in front of chest in a hugging motion. Keep slight bend in elbows throughout. Squeeze chest at the center, then slowly return with control.",
                         equipment: {
                             name: "Pec Fly Machine",
@@ -278,6 +307,16 @@ const workoutData = {
                         defaultReps: 12,
                         icon: "shoulderPress",
                         muscles: ["Shoulders", "Triceps", "Upper Chest"],
+                        videoId: "Wqq43dKW1TU",
+                        videoSource: "Muscle & Strength",
+                        steps: [
+                            "Adjust seat so handles are at shoulder level",
+                            "Sit with back firmly pressed against pad",
+                            "Grip handles with palms facing forward",
+                            "Press handles upward until arms are fully extended",
+                            "Don't lock elbows at the top",
+                            "Lower with control back to shoulder level"
+                        ],
                         description: "Sit with back firmly against pad. Grip handles at shoulder level. Press handles upward until arms are extended overhead. Lower with control back to shoulder level. Don't arch your back - keep core tight.",
                         equipment: {
                             name: "Shoulder Press Machine",
@@ -293,6 +332,16 @@ const workoutData = {
                         defaultReps: 12,
                         icon: "latPulldown",
                         muscles: ["Lats", "Biceps", "Rear Deltoids", "Rhomboids"],
+                        videoId: "CAwf7n6Luuc",
+                        videoSource: "ATHLEAN-X",
+                        steps: [
+                            "Adjust thigh pad to secure your legs",
+                            "Grip bar wider than shoulder-width, palms facing away",
+                            "Sit tall with chest up, slight lean back",
+                            "Pull bar down toward upper chest",
+                            "Squeeze shoulder blades together at bottom",
+                            "Slowly extend arms back to starting position"
+                        ],
                         description: "Sit with thighs secured under pads. Grip the bar wider than shoulder-width with palms forward. Pull bar down to upper chest, squeezing shoulder blades together. Slowly return to start with arms fully extended. Don't swing or use momentum.",
                         equipment: {
                             name: "Lat Pulldown Machine",
@@ -308,6 +357,16 @@ const workoutData = {
                         defaultReps: 12,
                         icon: "rowing",
                         muscles: ["Middle Back", "Lats", "Biceps", "Rear Deltoids"],
+                        videoId: "GZbfZ033f74",
+                        videoSource: "Muscle & Strength",
+                        steps: [
+                            "Adjust chest pad height and seat position",
+                            "Sit with chest against pad, feet flat on floor",
+                            "Grip handles with arms fully extended",
+                            "Pull handles toward your torso",
+                            "Squeeze shoulder blades together at the end",
+                            "Return with control to full arm extension"
+                        ],
                         description: "Sit with chest against pad, feet flat. Grip handles with arms extended. Pull handles toward your torso, squeezing shoulder blades together at the end. Keep elbows close to body. Return with control to full arm extension.",
                         equipment: {
                             name: "Seated Row Machine",
@@ -323,6 +382,16 @@ const workoutData = {
                         defaultReps: 12,
                         icon: "hammerCurl",
                         muscles: ["Biceps", "Brachialis", "Forearms"],
+                        videoId: "TwD-YGVP4Bk",
+                        videoSource: "Muscle & Strength",
+                        steps: [
+                            "Stand with feet shoulder-width apart",
+                            "Hold dumbbells at sides, palms facing your body",
+                            "Keep upper arms stationary throughout",
+                            "Curl weights toward shoulders (neutral grip)",
+                            "Squeeze biceps at the top for 1 second",
+                            "Lower with control - don't swing"
+                        ],
                         description: "Stand with dumbbells at sides, palms facing your body (neutral grip). Keeping upper arms stationary, curl weights toward shoulders. Squeeze biceps at top, then lower with control. Don't swing - keep movement strict.",
                         equipment: {
                             name: "Dumbbells",
@@ -338,6 +407,16 @@ const workoutData = {
                         defaultReps: 12,
                         icon: "overheadExtension",
                         muscles: ["Triceps"],
+                        videoId: "YbX7Wd8jQ-Q",
+                        videoSource: "Muscle & Strength",
+                        steps: [
+                            "Hold one dumbbell with both hands",
+                            "Raise dumbbell overhead, arms fully extended",
+                            "Keep upper arms close to your ears",
+                            "Lower weight behind head by bending elbows",
+                            "Feel stretch in triceps at bottom",
+                            "Extend arms back up, squeezing triceps"
+                        ],
                         description: "Hold one dumbbell with both hands overhead, arms extended. Lower the weight behind your head by bending elbows. Keep upper arms stationary and close to ears. Extend arms back up, squeezing triceps at top. Control the movement throughout.",
                         equipment: {
                             name: "Dumbbell",
@@ -360,6 +439,15 @@ const workoutData = {
                         repUnit: "min",
                         icon: "treadmill",
                         muscles: ["Heart", "Legs"],
+                        videoId: "jOfFfENtqnk",
+                        videoSource: "YouTube",
+                        steps: [
+                            "Choose treadmill or stationary bike",
+                            "Set to low intensity/slow pace",
+                            "Walk or pedal at comfortable speed",
+                            "Focus on deep breathing",
+                            "Continue for 5 minutes to cool down"
+                        ],
                         description: "Finish with 5 minutes of light cardio on treadmill or stationary bike. Keep intensity low (50-60% max heart rate). This helps your heart rate gradually return to normal and aids in recovery by promoting blood flow to muscles.",
                         equipment: {
                             name: "Treadmill / Stationary Bike",
@@ -386,6 +474,16 @@ const workoutData = {
                         defaultReps: 12,
                         icon: "squat",
                         muscles: ["Quadriceps", "Glutes", "Hamstrings", "Core"],
+                        videoId: "ultWZbUMPL8",
+                        videoSource: "Howcast",
+                        steps: [
+                            "Stand with feet shoulder-width apart",
+                            "Keep chest up and core engaged",
+                            "Push hips back and bend knees",
+                            "Lower until thighs are parallel to floor",
+                            "Hold position for 2-3 seconds",
+                            "Push through heels to stand back up"
+                        ],
                         description: "Stand with feet shoulder-width apart. Lower into squat position (thighs parallel to floor) and hold. Keep chest up, knees tracking over toes. Hold for 2-3 seconds at bottom, then stand back up. Keep weight in your heels.",
                         equipment: null
                     },
@@ -397,6 +495,16 @@ const workoutData = {
                         defaultReps: 12,
                         icon: "legPress",
                         muscles: ["Quadriceps", "Glutes", "Hamstrings"],
+                        videoId: "IZxyjW7MPJQ",
+                        videoSource: "Muscle & Strength",
+                        steps: [
+                            "Sit in machine with back flat against pad",
+                            "Place feet shoulder-width on platform",
+                            "Release safety handles",
+                            "Lower weight by bending knees to 90 degrees",
+                            "Push through heels to extend legs",
+                            "Don't lock knees at the top"
+                        ],
                         description: "Sit in machine with back flat against pad. Place feet shoulder-width on platform. Lower the weight by bending knees toward chest (90-degree angle). Push through heels to extend legs. Don't lock knees at top. Keep lower back pressed into pad.",
                         equipment: {
                             name: "Leg Press Machine",
@@ -412,6 +520,16 @@ const workoutData = {
                         defaultReps: 12,
                         icon: "legExtension",
                         muscles: ["Quadriceps"],
+                        videoId: "YyvSfVjQeL0",
+                        videoSource: "Muscle & Strength",
+                        steps: [
+                            "Adjust back pad and ankle roller position",
+                            "Sit with back against pad",
+                            "Place ankles behind lower roller pad",
+                            "Grip side handles for stability",
+                            "Extend legs until straight, squeeze quads",
+                            "Lower with control - don't let weight drop"
+                        ],
                         description: "Sit with back against pad, ankles behind lower roller pad. Grip side handles. Extend legs until straight, squeezing quads at top. Lower with control - don't let weight drop. Keep movement smooth and controlled throughout.",
                         equipment: {
                             name: "Leg Extension Machine",
@@ -427,6 +545,16 @@ const workoutData = {
                         defaultReps: 12,
                         icon: "legCurl",
                         muscles: ["Hamstrings", "Calves"],
+                        videoId: "1Tq3QdYUuHs",
+                        videoSource: "Muscle & Strength",
+                        steps: [
+                            "Lie face down on machine",
+                            "Position ankles under roller pad",
+                            "Grip handles for stability",
+                            "Curl heels toward glutes",
+                            "Squeeze hamstrings at top",
+                            "Lower with control - don't let weight drop"
+                        ],
                         description: "Lie face down on machine, ankles under roller pad. Grip handles for stability. Curl heels toward glutes, squeezing hamstrings at top. Lower with control to starting position. Don't lift hips off the pad during movement.",
                         equipment: {
                             name: "Lying Leg Curl Machine",
@@ -442,6 +570,16 @@ const workoutData = {
                         defaultReps: 12,
                         icon: "abductor",
                         muscles: ["Outer Thighs", "Hip Abductors", "Glutes"],
+                        videoId: "FhAgo9bDQfs",
+                        videoSource: "Muscle & Strength",
+                        steps: [
+                            "Sit with back against pad",
+                            "Place legs inside padded levers",
+                            "Start with knees together",
+                            "Push legs outward against resistance",
+                            "Squeeze outer thighs at widest point",
+                            "Return with control to starting position"
+                        ],
                         description: "Sit with back against pad, legs inside padded levers. Push legs outward against resistance, spreading knees apart. Squeeze outer thighs and glutes at the widest point. Return with control to starting position.",
                         equipment: {
                             name: "Hip Abductor Machine",
@@ -457,6 +595,16 @@ const workoutData = {
                         defaultReps: 15,
                         icon: "calfRaise",
                         muscles: ["Calves", "Soleus"],
+                        videoId: "gwLzBJYoWlI",
+                        videoSource: "Muscle & Strength",
+                        steps: [
+                            "Stand with shoulders under pads",
+                            "Position balls of feet on platform edge",
+                            "Let heels hang below platform level",
+                            "Rise up onto toes as high as possible",
+                            "Squeeze calves at the top",
+                            "Lower heels slowly for full stretch"
+                        ],
                         description: "Stand on calf raise machine with shoulders under pads. Position balls of feet on platform, heels hanging off. Rise up onto toes as high as possible, squeezing calves at top. Lower heels below platform level for full stretch. Keep knees slightly bent.",
                         equipment: {
                             name: "Standing Calf Raise Machine",
@@ -483,6 +631,16 @@ const workoutData = {
                         defaultReps: 12,
                         icon: "birdDog",
                         muscles: ["Core", "Lower Back", "Glutes", "Shoulders"],
+                        videoId: "wiFNA3sqjCA",
+                        videoSource: "ATHLEAN-X",
+                        steps: [
+                            "Start on hands and knees (tabletop position)",
+                            "Keep back flat and core engaged",
+                            "Extend right arm forward, parallel to floor",
+                            "Simultaneously extend left leg back",
+                            "Hold for 2 seconds, keep hips level",
+                            "Return to start, then switch sides"
+                        ],
                         description: "Start on hands and knees (tabletop position). Simultaneously extend right arm forward and left leg back. Keep hips level and core tight. Hold for 2 seconds, then return to start. Alternate sides. Move slowly and controlled.",
                         equipment: null
                     },
@@ -494,6 +652,16 @@ const workoutData = {
                         defaultReps: 12,
                         icon: "catCamel",
                         muscles: ["Spine", "Core", "Back"],
+                        videoId: "kqnua4rHVVA",
+                        videoSource: "AskDoctorJo",
+                        steps: [
+                            "Start on hands and knees, wrists under shoulders",
+                            "CAT: Round back toward ceiling",
+                            "Tuck chin to chest, pull belly button in",
+                            "CAMEL: Arch back, drop belly toward floor",
+                            "Lift head and tailbone toward ceiling",
+                            "Flow smoothly between positions"
+                        ],
                         description: "Start on hands and knees. For Cat: round your back toward ceiling, tucking chin to chest. For Camel: arch back, lifting head and tailbone toward ceiling. Flow between positions smoothly. This mobilizes the spine and relieves tension.",
                         equipment: null
                     },
@@ -505,6 +673,16 @@ const workoutData = {
                         defaultReps: 15,
                         icon: "buttKick",
                         muscles: ["Hamstrings", "Quadriceps", "Calves", "Heart"],
+                        videoId: "sAoMzFACzzs",
+                        videoSource: "HealthyFit",
+                        steps: [
+                            "Stand tall with feet hip-width apart",
+                            "Begin jogging in place",
+                            "Kick heels up toward your glutes",
+                            "Keep arms pumping naturally",
+                            "Land softly on balls of feet",
+                            "Maintain quick, light movements"
+                        ],
                         description: "Stand tall with feet hip-width apart. Jog in place, kicking heels up toward glutes with each step. Keep core engaged and arms pumping naturally. Land softly on balls of feet. Maintain quick, light movements.",
                         equipment: null
                     },
@@ -516,6 +694,16 @@ const workoutData = {
                         defaultReps: 15,
                         icon: "jumpingJack",
                         muscles: ["Full Body", "Heart", "Shoulders", "Legs"],
+                        videoId: "c4DAnQ6DtF8",
+                        videoSource: "LIVESTRONG",
+                        steps: [
+                            "Stand with feet together, arms at sides",
+                            "Jump feet out wide to sides",
+                            "Simultaneously raise arms overhead",
+                            "Jump feet back together",
+                            "Lower arms to sides",
+                            "Land softly, maintain steady rhythm"
+                        ],
                         description: "Start standing with arms at sides. Jump feet out wide while raising arms overhead. Jump feet back together while lowering arms. Keep core engaged and land softly. Maintain a steady rhythm throughout the set.",
                         equipment: null
                     },
@@ -527,6 +715,16 @@ const workoutData = {
                         defaultReps: 12,
                         icon: "sideBend",
                         muscles: ["Obliques", "Core"],
+                        videoId: "dL9ZzqtQI5c",
+                        videoSource: "Muscle & Strength",
+                        steps: [
+                            "Stand holding dumbbell in one hand",
+                            "Place other hand behind head",
+                            "Keep feet shoulder-width apart",
+                            "Bend sideways toward weighted side",
+                            "Use obliques to pull back upright",
+                            "Complete all reps, then switch sides"
+                        ],
                         description: "Stand holding dumbbell in one hand at your side. Keep opposite hand behind head. Slowly bend sideways toward the weighted side. Use obliques to pull back to upright position. Complete all reps on one side before switching.",
                         equipment: {
                             name: "Dumbbell",
@@ -542,6 +740,16 @@ const workoutData = {
                         defaultReps: 15,
                         icon: "gluteBridge",
                         muscles: ["Glutes", "Hamstrings", "Core", "Lower Back"],
+                        videoId: "OUgsJ8-Vi0E",
+                        videoSource: "LIVESTRONG",
+                        steps: [
+                            "Lie on back, knees bent, feet flat",
+                            "Position feet hip-width apart",
+                            "Arms at sides, palms down",
+                            "Push through heels to lift hips",
+                            "Squeeze glutes at top position",
+                            "Lower with control, repeat"
+                        ],
                         description: "Lie on back with knees bent, feet flat on floor hip-width apart. Push through heels to lift hips toward ceiling. Squeeze glutes at top, creating straight line from knees to shoulders. Lower with control. Don't overarch your back.",
                         equipment: null
                     }

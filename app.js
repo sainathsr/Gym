@@ -402,8 +402,31 @@
     // Open info modal
     function openInfoModal(exercise) {
         document.querySelector('#info-modal .modal-title').textContent = exercise.name;
-        document.querySelector('.info-illustration').innerHTML = svgIcons[exercise.icon] || '';
-        document.querySelector('.modal-description').textContent = exercise.description;
+
+        // Video
+        const videoContainer = document.getElementById('video-container');
+        const videoSourceName = document.getElementById('video-source-name');
+        if (exercise.videoId) {
+            videoContainer.innerHTML = `<iframe
+                src="https://www.youtube.com/embed/${exercise.videoId}?rel=0&modestbranding=1"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen></iframe>`;
+            videoSourceName.textContent = exercise.videoSource || 'YouTube';
+            videoContainer.parentElement.style.display = 'block';
+        } else {
+            videoContainer.innerHTML = '';
+            videoContainer.parentElement.style.display = 'none';
+        }
+
+        // Steps
+        const stepsList = document.getElementById('steps-list');
+        if (exercise.steps && exercise.steps.length > 0) {
+            stepsList.innerHTML = exercise.steps.map(step => `<li>${step}</li>`).join('');
+            stepsList.parentElement.style.display = 'block';
+        } else {
+            stepsList.innerHTML = '';
+            stepsList.parentElement.style.display = 'none';
+        }
 
         // Muscles
         const muscleTags = document.querySelector('.muscle-tags');
@@ -428,6 +451,11 @@
     function closeInfoModal() {
         infoModal.classList.remove('active');
         document.body.style.overflow = '';
+        // Stop video playback when closing modal
+        const videoContainer = document.getElementById('video-container');
+        if (videoContainer) {
+            videoContainer.innerHTML = '';
+        }
     }
 
     // Update progress display

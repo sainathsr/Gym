@@ -149,12 +149,23 @@
                 <button class="modal-close info-close">&times;</button>
             </div>
             <div class="modal-body">
-                <div class="modal-illustration info-illustration"></div>
-                <div class="modal-info">
-                    <div class="info-section">
-                        <h3>How to Perform</h3>
-                        <p class="modal-description"></p>
+                <!-- Video Section -->
+                <div class="video-section">
+                    <div class="video-container" id="video-container">
+                        <!-- YouTube iframe will be inserted here -->
                     </div>
+                    <p class="video-source">Video source: <span id="video-source-name"></span></p>
+                </div>
+
+                <!-- Step by Step Guide -->
+                <div class="info-section steps-section">
+                    <h3>Step-by-Step Guide</h3>
+                    <ol class="steps-list" id="steps-list">
+                        <!-- Steps will be inserted here -->
+                    </ol>
+                </div>
+
+                <div class="modal-info">
                     <div class="info-section">
                         <h3>Target Muscles</h3>
                         <div class="muscle-tags"></div>
