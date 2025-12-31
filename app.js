@@ -223,36 +223,30 @@
             }
         }
 
-        const muscles = exercise.muscles.slice(0, 2).map(m => `<span class="tag">${m}</span>`).join('');
-        const equipmentTag = exercise.equipment ? `<span class="tag equipment">${exercise.equipment.brand}</span>` : '';
-
         // Updated CTAs
         let actionsHtml;
         if (isCompleted) {
             actionsHtml = `
-                <button class="btn btn-undo" data-action="undo">↩ Undo</button>
+                <button class="btn btn-undo" data-action="undo">Undo</button>
                 <button class="btn btn-edit" data-action="edit">Edit</button>
             `;
         } else {
             actionsHtml = `
-                <button class="btn btn-done" data-action="done">✓ Done</button>
+                <button class="btn btn-done" data-action="done">Done</button>
             `;
         }
 
         return `
             <div class="${cardClass}" data-exercise-id="${exercise.id}" data-date="${dateKey}">
-                <div class="card-main">
-                    <div class="card-illustration" data-action="info">
+                <div class="card-body" data-action="info">
+                    <div class="card-icon">
                         ${svgIcons[exercise.icon] || ''}
                     </div>
                     <div class="card-content">
                         <h3 class="card-title">${exercise.name}</h3>
                         <p class="card-subtitle">${exercise.subtitle}</p>
-                        <div class="card-tags">
-                            ${muscles}
-                            ${equipmentTag}
-                        </div>
                     </div>
+                    ${isCompleted ? '<div class="card-check">✓</div>' : ''}
                 </div>
                 ${completedInfo}
                 <div class="card-actions">
