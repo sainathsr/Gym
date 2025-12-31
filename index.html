@@ -12,66 +12,144 @@
 </head>
 <body>
     <div class="app">
-        <!-- Navigation Tabs -->
-        <nav class="tab-nav">
-            <button class="tab-btn active" data-day="upper">
-                <span class="tab-icon">💪</span>
-                <span class="tab-label">Upper</span>
+        <!-- Bottom Navigation -->
+        <nav class="bottom-nav">
+            <button class="nav-btn active" data-view="today">
+                <span class="nav-icon">🏋️</span>
+                <span class="nav-label">Today</span>
             </button>
-            <button class="tab-btn" data-day="lower">
-                <span class="tab-icon">🦵</span>
-                <span class="tab-label">Lower</span>
-            </button>
-            <button class="tab-btn" data-day="core">
-                <span class="tab-icon">🎯</span>
-                <span class="tab-label">Core</span>
+            <button class="nav-btn" data-view="calendar">
+                <span class="nav-icon">📅</span>
+                <span class="nav-label">Calendar</span>
             </button>
         </nav>
 
-        <!-- Header -->
-        <header class="header">
-            <div class="header-content">
-                <h1 class="day-title">Upper Body Day</h1>
-                <p class="day-subtitle">3 Sets × 10-15 Reps</p>
+        <!-- Today View -->
+        <div class="view active" id="today-view">
+            <!-- Date Header -->
+            <header class="header">
+                <div class="date-display">
+                    <h1 class="current-date">Today</h1>
+                    <p class="full-date">December 31, 2024</p>
+                </div>
+                <div class="progress-ring">
+                    <span class="progress-text">0/0</span>
+                </div>
+            </header>
+
+            <!-- Workout Type Selector -->
+            <div class="workout-selector">
+                <p class="selector-label">Choose your workout</p>
+                <div class="workout-type-buttons">
+                    <button class="type-btn" data-type="upper">
+                        <span class="type-icon">💪</span>
+                        <span class="type-name">Upper Body</span>
+                    </button>
+                    <button class="type-btn" data-type="lower">
+                        <span class="type-icon">🦵</span>
+                        <span class="type-name">Lower Body</span>
+                    </button>
+                    <button class="type-btn" data-type="core">
+                        <span class="type-icon">🎯</span>
+                        <span class="type-name">Core</span>
+                    </button>
+                </div>
             </div>
-            <div class="progress-ring">
-                <span class="progress-text">0/9</span>
+
+            <!-- Workout Content (shown after selecting type) -->
+            <div class="workout-content" id="workout-content">
+                <!-- Workouts will be injected here -->
             </div>
-        </header>
 
-        <!-- Workout Pages -->
-        <main class="workout-container">
-            <!-- Upper Body Page -->
-            <section class="workout-page active" id="upper-page">
-                <!-- Workouts will be injected here -->
-            </section>
+            <!-- Reset Button -->
+            <button class="reset-btn" id="reset-day">
+                Reset Today's Progress
+            </button>
+        </div>
 
-            <!-- Lower Body Page -->
-            <section class="workout-page" id="lower-page">
-                <!-- Workouts will be injected here -->
-            </section>
+        <!-- Calendar View -->
+        <div class="view" id="calendar-view">
+            <header class="header calendar-header">
+                <button class="month-nav" id="prev-month">‹</button>
+                <h1 class="month-title">December 2024</h1>
+                <button class="month-nav" id="next-month">›</button>
+            </header>
 
-            <!-- Core Page -->
-            <section class="workout-page" id="core-page">
-                <!-- Workouts will be injected here -->
-            </section>
-        </main>
+            <div class="calendar-container">
+                <div class="calendar-weekdays">
+                    <span>Sun</span>
+                    <span>Mon</span>
+                    <span>Tue</span>
+                    <span>Wed</span>
+                    <span>Thu</span>
+                    <span>Fri</span>
+                    <span>Sat</span>
+                </div>
+                <div class="calendar-days" id="calendar-days">
+                    <!-- Calendar days will be injected here -->
+                </div>
+            </div>
 
-        <!-- Reset Button -->
-        <button class="reset-btn" id="reset-day">
-            Reset Today's Progress
-        </button>
+            <!-- Selected Day Summary -->
+            <div class="day-summary" id="day-summary">
+                <p class="summary-placeholder">Tap a day to view workout details</p>
+            </div>
+        </div>
     </div>
 
-    <!-- Workout Detail Modal -->
-    <div class="modal" id="workout-modal">
+    <!-- Edit Modal -->
+    <div class="modal" id="edit-modal">
         <div class="modal-content">
             <div class="modal-header">
-                <h2 class="modal-title">Exercise Name</h2>
+                <h2 class="modal-title">Edit Exercise</h2>
                 <button class="modal-close">&times;</button>
             </div>
             <div class="modal-body">
-                <div class="modal-illustration"></div>
+                <div class="modal-exercise-info">
+                    <div class="modal-illustration"></div>
+                    <div class="modal-exercise-details">
+                        <h3 class="modal-exercise-name"></h3>
+                        <p class="modal-exercise-desc"></p>
+                    </div>
+                </div>
+                <div class="modal-tracking">
+                    <h3>Track Your Sets</h3>
+                    <div class="sets-container">
+                        <div class="set-input">
+                            <label>Set 1</label>
+                            <input type="number" class="reps-input" data-set="1" placeholder="Reps" min="0" max="50">
+                        </div>
+                        <div class="set-input">
+                            <label>Set 2</label>
+                            <input type="number" class="reps-input" data-set="2" placeholder="Reps" min="0" max="50">
+                        </div>
+                        <div class="set-input">
+                            <label>Set 3</label>
+                            <input type="number" class="reps-input" data-set="3" placeholder="Reps" min="0" max="50">
+                        </div>
+                    </div>
+                    <div class="comment-section">
+                        <label>Notes (optional)</label>
+                        <textarea class="comment-input" placeholder="How did it feel? Any adjustments?"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-actions">
+                <button class="btn btn-secondary" id="modal-cancel">Cancel</button>
+                <button class="btn btn-primary" id="modal-save">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Exercise Info Modal -->
+    <div class="modal" id="info-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Exercise Info</h2>
+                <button class="modal-close info-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="modal-illustration info-illustration"></div>
                 <div class="modal-info">
                     <div class="info-section">
                         <h3>How to Perform</h3>
@@ -83,34 +161,16 @@
                     </div>
                     <div class="info-section equipment-section">
                         <h3>Equipment</h3>
-                        <div class="equipment-info"></div>
+                        <div class="equipment-info">
+                            <p class="equipment-name"></p>
+                            <p class="equipment-brand"></p>
+                            <p class="equipment-desc"></p>
+                        </div>
                     </div>
-                </div>
-            </div>
-            <div class="modal-tracking">
-                <h3>Track Your Sets</h3>
-                <div class="sets-container">
-                    <div class="set-input">
-                        <label>Set 1</label>
-                        <input type="number" class="reps-input" data-set="1" placeholder="Reps" min="0" max="50">
-                    </div>
-                    <div class="set-input">
-                        <label>Set 2</label>
-                        <input type="number" class="reps-input" data-set="2" placeholder="Reps" min="0" max="50">
-                    </div>
-                    <div class="set-input">
-                        <label>Set 3</label>
-                        <input type="number" class="reps-input" data-set="3" placeholder="Reps" min="0" max="50">
-                    </div>
-                </div>
-                <div class="comment-section">
-                    <label>Notes (optional)</label>
-                    <textarea class="comment-input" placeholder="How did it feel? Any adjustments?"></textarea>
                 </div>
             </div>
             <div class="modal-actions">
-                <button class="btn btn-secondary" id="modal-cancel">Cancel</button>
-                <button class="btn btn-primary" id="modal-save">Save & Complete</button>
+                <button class="btn btn-primary info-close-btn">Got it</button>
             </div>
         </div>
     </div>
