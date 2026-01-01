@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="theme-color" content="#1a1a2e">
+    <meta name="theme-color" content="#f5f5f7">
     <title>Gym Tracker - SAI</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="manifest" href="manifest.json">
@@ -21,6 +21,10 @@
             <button class="nav-btn" data-view="calendar">
                 <span class="nav-icon">📅</span>
                 <span class="nav-label">Calendar</span>
+            </button>
+            <button class="nav-btn" data-view="settings">
+                <span class="nav-icon">⚙️</span>
+                <span class="nav-label">Settings</span>
             </button>
         </nav>
 
@@ -93,6 +97,78 @@
             <!-- Selected Day Summary -->
             <div class="day-summary" id="day-summary">
                 <p class="summary-placeholder">Tap a day to view workout details</p>
+            </div>
+        </div>
+
+        <!-- Settings View -->
+        <div class="view" id="settings-view">
+            <header class="header">
+                <h1 class="current-date">Settings</h1>
+                <p class="full-date">Sync & Preferences</p>
+            </header>
+
+            <div class="settings-content">
+                <!-- Apple Health Sync Section -->
+                <div class="settings-section">
+                    <h2 class="settings-title">
+                        <span class="settings-icon">❤️</span>
+                        Apple Health Sync
+                    </h2>
+                    <p class="settings-desc">Automatically import workouts from Apple Health to track your gym sessions.</p>
+
+                    <div class="sync-status" id="sync-status">
+                        <div class="status-row">
+                            <span class="status-label">Status</span>
+                            <span class="status-value" id="sync-status-value">Not configured</span>
+                        </div>
+                        <div class="status-row" id="user-id-row" style="display: none;">
+                            <span class="status-label">Your Sync ID</span>
+                            <span class="status-value sync-id" id="sync-user-id">—</span>
+                        </div>
+                        <div class="status-row" id="last-sync-row" style="display: none;">
+                            <span class="status-label">Last Sync</span>
+                            <span class="status-value" id="last-sync-time">Never</span>
+                        </div>
+                    </div>
+
+                    <div class="sync-actions">
+                        <button class="settings-btn btn-primary" id="setup-sync-btn">
+                            Set Up Apple Health Sync
+                        </button>
+                        <button class="settings-btn btn-secondary" id="sync-now-btn" style="display: none;">
+                            Sync Now
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Manual Import Section -->
+                <div class="settings-section">
+                    <h2 class="settings-title">
+                        <span class="settings-icon">📤</span>
+                        Manual Import
+                    </h2>
+                    <p class="settings-desc">Import workout data from an Apple Health export file.</p>
+
+                    <div class="import-area">
+                        <input type="file" id="import-file" accept=".xml,.zip" style="display: none;">
+                        <button class="settings-btn btn-secondary" id="import-btn">
+                            Choose Export File
+                        </button>
+                        <p class="import-hint">Supports Apple Health export.xml files</p>
+                    </div>
+                </div>
+
+                <!-- About Section -->
+                <div class="settings-section">
+                    <h2 class="settings-title">
+                        <span class="settings-icon">ℹ️</span>
+                        About
+                    </h2>
+                    <div class="about-info">
+                        <p><strong>Gym Tracker</strong> for SAI</p>
+                        <p class="about-version">Gold's Gym Adyar Workout Plan</p>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -186,7 +262,82 @@
         </div>
     </div>
 
+    <!-- Setup Modal for Apple Health Sync -->
+    <div class="modal" id="setup-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Set Up Apple Health Sync</h2>
+                <button class="modal-close setup-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="setup-steps">
+                    <div class="setup-step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <h3>Install Health Auto Export</h3>
+                            <p>Download the <strong>Health Auto Export</strong> app from the App Store ($2.99 or subscription).</p>
+                            <a href="https://apps.apple.com/us/app/health-auto-export-json-csv/id1115567069" target="_blank" class="app-link">
+                                Open App Store →
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="setup-step">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <h3>Your Sync ID</h3>
+                            <p>Use this ID when configuring the app:</p>
+                            <div class="sync-id-display">
+                                <code id="setup-sync-id">Loading...</code>
+                                <button class="copy-btn" id="copy-sync-id">Copy</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="setup-step">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <h3>Configure Webhook</h3>
+                            <p>In Health Auto Export, go to <strong>Automations → REST API</strong> and enter:</p>
+                            <div class="webhook-config">
+                                <div class="config-item">
+                                    <label>URL:</label>
+                                    <code id="webhook-url">Configure SYNC_API_URL first</code>
+                                </div>
+                                <div class="config-item">
+                                    <label>Method:</label>
+                                    <code>POST</code>
+                                </div>
+                                <div class="config-item">
+                                    <label>Header:</label>
+                                    <code>X-User-ID: <span id="webhook-user-id">YOUR_ID</span></code>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="setup-step">
+                        <div class="step-number">4</div>
+                        <div class="step-content">
+                            <h3>Select Workout Data</h3>
+                            <p>Enable <strong>Workouts</strong> export in Health Auto Export. Set automation to run daily or after each workout.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="setup-note">
+                    <strong>Note:</strong> You need to deploy the backend first. See <code>backend/cloudflare-worker.js</code> for instructions.
+                </div>
+            </div>
+            <div class="modal-actions">
+                <button class="btn btn-primary setup-close">Done</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="config.js"></script>
     <script src="workouts.js"></script>
+    <script src="health-sync.js"></script>
     <script src="app.js"></script>
 </body>
 </html>

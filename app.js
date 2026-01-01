@@ -83,7 +83,7 @@
         });
     }
 
-    // Switch view (today/calendar)
+    // Switch view (today/calendar/settings)
     function switchView(view) {
         currentView = view;
         navButtons.forEach(btn => {
@@ -95,6 +95,8 @@
 
         if (view === 'calendar') {
             renderCalendar();
+        } else if (view === 'settings') {
+            updateSettingsStatus();
         }
     }
 
@@ -663,10 +665,195 @@
         }
     }
 
+    // Settings functionality
+    const setupModal = document.getElementById('setup-modal');
+    const setupSyncBtn = document.getElementById('setup-sync-btn');
+    const syncNowBtn = document.getElementById('sync-now-btn');
+    const importBtn = document.getElementById('import-btn');
+    const importFile = document.getElementById('import-file');
+
+    function initSettings() {
+        // Setup sync button
+        if (setupSyncBtn) {
+            setupSyncBtn.addEventListener('click', openSetupModal);
+        }
+
+        // Sync now button
+        if (syncNowBtn) {
+            syncNowBtn.addEventListener('click', syncNow);
+        }
+
+        // Import button
+        if (importBtn) {
+            importBtn.addEventListener('click', () => importFile.click());
+        }
+
+        if (importFile) {
+            importFile.addEventListener('change', handleImport);
+        }
+
+        // Setup modal close
+        if (setupModal) {
+            setupModal.querySelectorAll('.setup-close').forEach(el => {
+                el.addEventListener('click', closeSetupModal);
+            });
+            setupModal.addEventListener('click', (e) => {
+                if (e.target === setupModal) closeSetupModal();
+            });
+
+            // Copy button
+            const copyBtn = document.getElementById('copy-sync-id');
+            if (copyBtn) {
+                copyBtn.addEventListener('click', copyUserId);
+            }
+        }
+
+        // Update settings status on view switch
+        updateSettingsStatus();
+    }
+
+    async function openSetupModal() {
+        // Get or create user ID
+        const userId = await HealthSync.getUserId();
+
+        // Update modal content
+        document.getElementById('setup-sync-id').textContent = userId;
+        document.getElementById('webhook-user-id').textContent = userId;
+
+        const webhookUrl = HealthSync.getWebhookUrl();
+        document.getElementById('webhook-url').textContent = webhookUrl || 'Configure SYNC_API_URL in config.js';
+
+        setupModal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeSetupModal() {
+        setupModal.classList.remove('active');
+        document.body.style.overflow = '';
+        updateSettingsStatus();
+    }
+
+    async function copyUserId() {
+        const userId = document.getElementById('setup-sync-id').textContent;
+        try {
+            await navigator.clipboard.writeText(userId);
+            const copyBtn = document.getElementById('copy-sync-id');
+            copyBtn.textContent = 'Copied!';
+            setTimeout(() => {
+                copyBtn.textContent = 'Copy';
+            }, 2000);
+        } catch (e) {
+            console.error('Failed to copy:', e);
+        }
+    }
+
+    async function syncNow() {
+        const btn = syncNowBtn;
+        const originalText = btn.textContent;
+        btn.textContent = 'Syncing...';
+        btn.disabled = true;
+
+        try {
+            const result = await HealthSync.syncFromCloud();
+            btn.textContent = `Synced ${result.synced} workouts`;
+            setTimeout(() => {
+                btn.textContent = originalText;
+                btn.disabled = false;
+            }, 2000);
+
+            // Refresh the current view
+            if (currentView === 'today') {
+                renderWorkouts();
+            } else if (currentView === 'calendar') {
+                renderCalendar();
+            }
+
+            updateSettingsStatus();
+        } catch (error) {
+            console.error('Sync error:', error);
+            btn.textContent = 'Sync failed';
+            setTimeout(() => {
+                btn.textContent = originalText;
+                btn.disabled = false;
+            }, 2000);
+        }
+    }
+
+    async function handleImport(e) {
+        const file = e.target.files[0];
+        if (!file) return;
+
+        importBtn.textContent = 'Importing...';
+        importBtn.disabled = true;
+
+        try {
+            const result = await HealthSync.importFromXML(file);
+            importBtn.textContent = `Imported ${result.imported} workouts`;
+            setTimeout(() => {
+                importBtn.textContent = 'Choose Export File';
+                importBtn.disabled = false;
+            }, 2000);
+
+            // Refresh views
+            renderWorkouts();
+        } catch (error) {
+            console.error('Import error:', error);
+            alert(error.message || 'Failed to import file');
+            importBtn.textContent = 'Choose Export File';
+            importBtn.disabled = false;
+        }
+
+        // Reset file input
+        importFile.value = '';
+    }
+
+    async function updateSettingsStatus() {
+        if (typeof HealthSync === 'undefined') return;
+
+        const status = await HealthSync.getStatus();
+
+        // Update status display
+        const statusValue = document.getElementById('sync-status-value');
+        const userIdRow = document.getElementById('user-id-row');
+        const lastSyncRow = document.getElementById('last-sync-row');
+        const syncUserId = document.getElementById('sync-user-id');
+        const lastSyncTime = document.getElementById('last-sync-time');
+
+        if (status.configured) {
+            if (status.enabled) {
+                statusValue.textContent = 'Connected';
+                statusValue.style.color = 'var(--accent-success)';
+            } else {
+                statusValue.textContent = 'Ready to connect';
+                statusValue.style.color = 'var(--accent-primary)';
+            }
+
+            if (status.userId) {
+                userIdRow.style.display = 'flex';
+                syncUserId.textContent = status.userId;
+                syncNowBtn.style.display = 'block';
+            }
+
+            if (status.lastSync) {
+                lastSyncRow.style.display = 'flex';
+                const date = new Date(status.lastSync);
+                lastSyncTime.textContent = date.toLocaleString();
+            }
+        } else {
+            statusValue.textContent = 'Not configured';
+            statusValue.style.color = 'var(--text-muted)';
+            setupSyncBtn.textContent = 'Set Up Apple Health Sync';
+        }
+    }
+
     // Initialize when DOM is ready
     if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', init);
+        document.addEventListener('DOMContentLoaded', () => {
+            init();
+            initSettings();
+        });
     } else {
         init();
+        initSettings();
     }
 })();
