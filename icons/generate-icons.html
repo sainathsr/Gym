@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Generate App Icons</title>
+    <style>
+        body { font-family: system-ui; padding: 40px; text-align: center; }
+        h1 { margin-bottom: 20px; }
+        .icons { display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; margin: 30px 0; }
+        .icon-item { text-align: center; }
+        .icon-item canvas { border: 1px solid #ddd; border-radius: 16px; }
+        .icon-item p { margin: 8px 0; font-size: 14px; color: #666; }
+        button { padding: 16px 32px; font-size: 18px; background: #3b82f6; color: white; border: none; border-radius: 12px; cursor: pointer; }
+        button:hover { background: #2563eb; }
+        .instructions { max-width: 500px; margin: 30px auto; text-align: left; background: #f5f5f7; padding: 20px; border-radius: 12px; }
+        .instructions li { margin: 8px 0; }
+    </style>
+</head>
+<body>
+    <h1>Gym Tracker Icon Generator</h1>
+    <p>Click the button to generate and download all PWA icons</p>
+
+    <button onclick="generateAll()">Download All Icons</button>
+
+    <div class="icons" id="icons"></div>
+
+    <div class="instructions">
+        <h3>After downloading:</h3>
+        <ol>
+            <li>Move all PNG files to the <code>icons/</code> folder</li>
+            <li>Commit and push to GitHub</li>
+            <li>Refresh GitHub Pages</li>
+            <li>Add to Home Screen from Safari</li>
+        </ol>
+    </div>
+
+    <script>
+        const sizes = [72, 96, 128, 144, 152, 192, 384, 512];
+
+        function drawIcon(ctx, size) {
+            const scale = size / 512;
+
+            // Background gradient
+            const gradient = ctx.createLinearGradient(0, 0, size, size);
+            gradient.addColorStop(0, '#3b82f6');
+            gradient.addColorStop(1, '#2563eb');
+
+            // Rounded rectangle background
+            const radius = 96 * scale;
+            ctx.beginPath();
+            ctx.roundRect(0, 0, size, size, radius);
+            ctx.fillStyle = gradient;
+            ctx.fill();
+
+            // Dumbbell - white
+            ctx.fillStyle = 'white';
+
+            // Left weight
+            roundRect(ctx, 100 * scale, 180 * scale, 60 * scale, 152 * scale, 12 * scale);
+            roundRect(ctx, 80 * scale, 210 * scale, 100 * scale, 92 * scale, 8 * scale);
+
+            // Bar
+            roundRect(ctx, 160 * scale, 236 * scale, 192 * scale, 40 * scale, 8 * scale);
+
+            // Right weight
+            roundRect(ctx, 352 * scale, 180 * scale, 60 * scale, 152 * scale, 12 * scale);
+            roundRect(ctx, 332 * scale, 210 * scale, 100 * scale, 92 * scale, 8 * scale);
+
+            // Green check circle
+            ctx.beginPath();
+            ctx.arc(400 * scale, 120 * scale, 56 * scale, 0, Math.PI * 2);
+            ctx.fillStyle = '#22c55e';
+            ctx.fill();
+
+            // Check mark
+            ctx.beginPath();
+            ctx.moveTo(372 * scale, 120 * scale);
+            ctx.lineTo(392 * scale, 140 * scale);
+            ctx.lineTo(428 * scale, 100 * scale);
+            ctx.strokeStyle = 'white';
+            ctx.lineWidth = 14 * scale;
+            ctx.lineCap = 'round';
+            ctx.lineJoin = 'round';
+            ctx.stroke();
+        }
+
+        function roundRect(ctx, x, y, w, h, r) {
+            ctx.beginPath();
+            ctx.roundRect(x, y, w, h, r);
+            ctx.fill();
+        }
+
+        function generateIcon(size) {
+            const canvas = document.createElement('canvas');
+            canvas.width = size;
+            canvas.height = size;
+            const ctx = canvas.getContext('2d');
+            drawIcon(ctx, size);
+            return canvas;
+        }
+
+        function downloadIcon(canvas, size) {
+            const link = document.createElement('a');
+            link.download = `icon-${size}.png`;
+            link.href = canvas.toDataURL('image/png');
+            link.click();
+        }
+
+        function generateAll() {
+            const container = document.getElementById('icons');
+            container.innerHTML = '';
+
+            sizes.forEach((size, index) => {
+                setTimeout(() => {
+                    const canvas = generateIcon(size);
+
+                    // Show preview
+                    const div = document.createElement('div');
+                    div.className = 'icon-item';
+
+                    const previewCanvas = document.createElement('canvas');
+                    previewCanvas.width = Math.min(size, 128);
+                    previewCanvas.height = Math.min(size, 128);
+                    const ctx = previewCanvas.getContext('2d');
+                    ctx.drawImage(canvas, 0, 0, previewCanvas.width, previewCanvas.height);
+
+                    div.appendChild(previewCanvas);
+                    div.innerHTML += `<p>icon-${size}.png</p>`;
+                    container.appendChild(div);
+
+                    // Download
+                    downloadIcon(canvas, size);
+                }, index * 300);
+            });
+        }
+
+        // Show previews on load
+        window.onload = function() {
+            const container = document.getElementById('icons');
+            sizes.forEach(size => {
+                const canvas = generateIcon(size);
+                const div = document.createElement('div');
+                div.className = 'icon-item';
+
+                const previewCanvas = document.createElement('canvas');
+                previewCanvas.width = Math.min(size, 100);
+                previewCanvas.height = Math.min(size, 100);
+                const ctx = previewCanvas.getContext('2d');
+                ctx.drawImage(canvas, 0, 0, previewCanvas.width, previewCanvas.height);
+
+                div.appendChild(previewCanvas);
+                div.innerHTML += `<p>${size}x${size}</p>`;
+                container.appendChild(div);
+            });
+        };
+    </script>
+</body>
+</html>

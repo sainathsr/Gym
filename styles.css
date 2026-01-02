@@ -27,6 +27,15 @@
 
 html {
     font-size: 16px;
+    /* iOS safe areas */
+    padding: env(safe-area-inset-top) env(safe-area-inset-right) 0 env(safe-area-inset-left);
+}
+
+/* Standalone PWA mode adjustments */
+@media all and (display-mode: standalone) {
+    body {
+        padding-top: env(safe-area-inset-top);
+    }
 }
 
 body {
